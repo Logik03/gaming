@@ -1,0 +1,18 @@
+<div class="wrapper ">
+  <div class="cards">
+    <div  *ngFor="let game of gameList ; let i = index" class="card">
+      <div *ngIf="game.categories.includes('new') && (componentName !=='New' && componentName !=='Top') "class="container" data-ribbon="NEW" style="--d:8px;--c:#8DC63F"></div>
+      <div *ngIf="game.categories.includes('top') && (componentName !=='New' && componentName !=='Top')" class="container left" data-ribbon="TOP" style="--d:8px;--c:#8DC63F"></div>
+      <div class="overlayer">
+        <i class="fa fa-play-circle"></i>
+      </div>
+      <img [src]="game.image" alt="">
+      <div class="title">
+        <a href="#">{{game.name}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  

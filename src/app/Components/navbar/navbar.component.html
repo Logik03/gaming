@@ -1,0 +1,18 @@
+  <div class="topnav" id="myTopnav">
+    <a href="javascript:void(0);" class="icon" (click)="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a routerLink="/top" routerLinkActive="active-link">Top Games</a>
+    <a  routerLink="/new" routerLinkActive="active-link">New Games</a>
+    <a routerLink="/slot" routerLinkActive="active-link">Slots</a>
+    <a routerLink="/jackpot" routerLinkActive="active-link">Jackpots</a>
+    <a routerLink="/live" routerLinkActive="active-link">Live</a>
+    <a routerLink="/blackjack" routerLinkActive="active-link">Blackjack</a>
+    <a routerLink="/roulette" routerLinkActive="active-link">Roulette</a>
+    <a routerLink="/table" routerLinkActive="active-link">Table</a>
+    <a routerLink="/poker" routerLinkActive="active-link">Poker</a>
+    <a routerLink="/other" routerLinkActive="active-link">Other</a>
+  </div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
