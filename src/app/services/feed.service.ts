@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Game, Jackpot } from '../interfaces';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +14,12 @@ export class FeedService {
 
   constructor(private http: HttpClient) { }
 
-  getGameFeeds () {
-    return this.http.get<any>(this.GAME_FEED);
+  getGameFeeds (): Observable<Game[]> {
+    return this.http.get<Game[]>(this.GAME_FEED);
   }
 
-  getJackpotFeeds() {
-    return this.http.get<any>(this.JACKPOT_FEED);
+  getJackpotFeeds(): Observable<Jackpot[]> {
+    return this.http.get<Jackpot[]>(this.JACKPOT_FEED);
   }
   
 }
