@@ -26,6 +26,17 @@ import { RouletteComponent } from './roulette';
 import { TableComponent } from './table';
 import { PokerComponent } from './poker';
 import { OtherComponent } from './other';
+import { StoreModule } from '@ngrx/store';
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment.prod';
+import { EffectsModule } from '@ngrx/effects';
+import { GamesEffects } from './store/games/effects';
+import { JackpotsEffects } from './store/jackpots/effects';
+import { gameReducer } from './store/games/reducer';
+import { jackpotReducer } from './store/jackpots/reducer';
+
+
 //import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -60,6 +71,13 @@ import { OtherComponent } from './other';
     MatSidenavModule,
     MatListModule,
     HttpClientModule,
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({
+      name: 'NgRx Demo App',
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot([GamesEffects, JackpotsEffects]),
+    StoreModule.forFeature('mygames', gameReducer), StoreModule.forFeature('jackpots', jackpotReducer)
 
   ],
   providers: [],

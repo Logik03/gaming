@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from '../services';
+import { select, Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Function } from '../helpers';
+import { selectGames, mergeGamesJackpot } from '../store/games/selectors';
 
 
 
@@ -13,18 +14,15 @@ export class NewGamesComponent implements OnInit {
   componentName: string;
 
 
-  constructor(private feed: FeedService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private getFeeds: Function,) { }
+  constructor(private store: Store,private getFeeds: Function) { }
 
 
 
 
   ngOnInit() {
     this.componentName = 'New'
-    this.feed.getGameFeeds().subscribe(data => {
-      let allFeeds = data;
+    this.store.select(mergeGamesJackpot).subscribe((games) => {
+      let allFeeds = games;
       this.newGames = this.getFeeds.getFeedsByCategory(allFeeds, 'new');
     })
 

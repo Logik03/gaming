@@ -1,2 +1,2 @@
 export * from './feed.service';
-export * from './jackpotstate.service';
+//export * from './jackpotstate.service';

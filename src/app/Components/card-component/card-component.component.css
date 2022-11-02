@@ -112,6 +112,19 @@ body {
   color: #FFFFFF;
 }
 
+.card .amount {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+.card .amount a {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
 .card .overlayer {
   top: 0;
   right: 0;

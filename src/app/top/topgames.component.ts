@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from '../services';
-import { Router, ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { Function } from '../helpers';
+import { selectGames, mergeGamesJackpot } from '../store/games/selectors';
 
 
 
@@ -9,12 +9,10 @@ import { Function } from '../helpers';
 @Component({ templateUrl: 'topgames.component.html' })
 export class TopGamesComponent implements OnInit {
   
-  topGames= [];
+  topGames = [];
   componentName:string;
   
-  constructor(private feed: FeedService,
-              private route: ActivatedRoute,
-              private router: Router,
+  constructor(private store: Store,
               private getFeeds : Function,) {}
   
   
@@ -22,8 +20,8 @@ export class TopGamesComponent implements OnInit {
   
   ngOnInit(){
     this.componentName = 'Top';
-    this.feed.getGameFeeds().subscribe(data => {
-      let allFeeds = data;
+    this.store.select(mergeGamesJackpot).subscribe((games) => {
+      let allFeeds = games;
       this.topGames = this.getFeeds.getFeedsByCategory(allFeeds, 'top');
     })
 

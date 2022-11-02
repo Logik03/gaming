@@ -10,6 +10,7 @@ export class CardComponentComponent implements OnInit {
   top = false;
   new = true;
   @Input() gameList : Game[];
+  @Input() jackList: Jackpot[];
   @Input() componentName : string;
   constructor() { }
 

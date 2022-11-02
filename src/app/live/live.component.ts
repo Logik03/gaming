@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from '../services';
+import { select, Store } from '@ngrx/store';
+import { selectGames } from '../store/games/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Function } from '../helpers';
 
@@ -14,10 +15,8 @@ export class LiveComponent implements OnInit {
   componentName: string
 
   constructor(
-    private feed: FeedService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private getFeeds: Function,
+    private store: Store, private getFeeds: Function
+
   ) { }
 
 
@@ -25,9 +24,9 @@ export class LiveComponent implements OnInit {
 
   ngOnInit() {
     this.componentName = 'Live';
-    this.feed.getGameFeeds().subscribe(data => {
-      let allFeeds = data;
-      this.liveGames = this.getFeeds.getFeedsByCategory(allFeeds, 'jackpot');
+    this.store.select(selectGames).subscribe((games) => {
+      let allFeeds = games;
+      this.liveGames = this.getFeeds.getFeedsByCategory(allFeeds, 'live');
     })
   }
 

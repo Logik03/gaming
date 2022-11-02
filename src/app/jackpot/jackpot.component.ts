@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from '../services';
+import { select, Store } from '@ngrx/store';
+import { selectGamesWithJackpots, getGamesWithJackpots } from '../store/gamejackpots/games-with-jackpots.selectors';
+import { selectGames } from '../store/games/selectors';
+import { selectJackpots } from '../store/jackpots/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Function } from '../helpers';
+import { Game, Jackpot } from '../interfaces';
 
 
 
@@ -10,16 +14,12 @@ import { Function } from '../helpers';
 
 export class JackPotComponent implements OnInit {
 
-  jackpotFeeds = []
-
   jackpotGames = [];
   componentName: string
 
   constructor(
-    private feed: FeedService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private getFeeds: Function,
+    private store: Store, private getFeeds: Function
+
   ) { }
 
 
@@ -27,23 +27,9 @@ export class JackPotComponent implements OnInit {
 
   ngOnInit() {
     this.componentName = 'Jackpot';
-    this.feed.getJackpotFeeds().subscribe(data => {
-      let feeds = data;
-      this.jackpotFeeds = feeds.map(games => {
-        return games.game;
-      })
-    })
-    
-    this.feed.getGameFeeds().subscribe(data => {
-      let allFeeds = data;
-      this.jackpotGames = this.jackpotFeeds.map(id => allFeeds.find(item => item.id.includes(id)));
-    })
-    
-
+    this.store.select(getGamesWithJackpots).subscribe((games) => {
+      this.jackpotGames = games;
+    }) 
   }
-
-
-
-
 
 }

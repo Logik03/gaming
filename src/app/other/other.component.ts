@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from '../services';
+import { select, Store } from '@ngrx/store';
+import { selectGames, mergeGamesJackpot } from '../store/games/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Function } from '../helpers';
 
@@ -17,10 +18,7 @@ export class OtherComponent implements OnInit {
   componentName: string
 
   constructor(
-    private feed: FeedService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private getFeeds:Function
+    private store: Store, private getFeeds: Function
   ) { }
 
 
@@ -28,7 +26,7 @@ export class OtherComponent implements OnInit {
 
   ngOnInit() {
     this.componentName = 'Other';
-    this.feed.getGameFeeds().subscribe(data => {
+    this.store.select(mergeGamesJackpot).subscribe(data => {
       let allFeeds = data;
       this.ballGames = this.getFeeds.getFeedsByCategory(allFeeds, 'ball');
       this.virtualGames = this.getFeeds.getFeedsByCategory(allFeeds, 'virtual');
